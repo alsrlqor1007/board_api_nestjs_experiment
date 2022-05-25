@@ -4,10 +4,9 @@ import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToO
 @Entity('Post')
 export class Post {
     @PrimaryGeneratedColumn()
-    id: number;
+    post_id: number;
 
-    @ManyToOne(() => User, user => user.posts, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'writer_id' })
+    @Column({ type: 'int' })
     writer_id: number;
 
     @Column({ type: 'varchar' })
@@ -21,4 +20,8 @@ export class Post {
 
     @DeleteDateColumn({ type: 'timestamp', nullable: true })
     deleted_date_time: Date;
+
+    @ManyToOne(() => User, user => user.posts, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'writer_id', referencedColumnName: 'user_id' })
+    user: User;
 }
