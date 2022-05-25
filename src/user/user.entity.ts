@@ -22,5 +22,5 @@ export class User {
     deleted_date_time: Date;
 
     @OneToMany(() => Post, post => post.writer_id, { cascade: true })
-    posts: Post[]
+    posts: Post[];
 }
