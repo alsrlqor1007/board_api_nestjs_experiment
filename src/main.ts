@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { getEnabledCategories } from 'trace_events';
@@ -12,13 +13,20 @@ async function bootstrap() {
     .setTitle('board_api_mingi')
     .setDescription('Board API Document by Mingi')
     .setVersion('1.0')
-    .addTag('swagger practice')
     .build()
 
-    const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, config);
     
-    SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('api', app, document);
 
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist : true, 
+      forbidNonWhitelisted : true,
+      transform : true
+    })
+  )
+  
   await app.listen(3000);
 }
 bootstrap();
