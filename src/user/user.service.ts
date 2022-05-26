@@ -22,7 +22,7 @@ export class UserService {
             const result = this.userRepository.createUser(userDto);
 
             return {
-                data: (await result).nickname,
+                nickname: (await result).nickname,
                 message: 'Created new user'
             }
         };
@@ -32,7 +32,7 @@ export class UserService {
         const { nickname, password } = userDto;
 
         const userinfo = await this.userRepository.findOne({ where: { nickname }});
-        if (!userinfo) throw new NotFoundException(`No users with ${nickname}`);
+        if (!userinfo) throw new NotFoundException(`No user with ${nickname}`);
         
         const passwordValidity = await bcrypt.compare(password, userinfo.password);
         if (!passwordValidity) throw new BadRequestException('Wrong password');
@@ -43,18 +43,14 @@ export class UserService {
                 data: {
                     user_id: userinfo.user_id,
                     nickname: userinfo.nickname,
-                    accessToken
+                    access_token: accessToken
                 },
                 message: 'Login success'
             }
         }
     }
 
-    async logout(id) {
-        
-    }
+    // async logout(id) {}
 
-    async withdrawal(id) {
-        
-    }
+    // async withdrawal(id) {}
 }
