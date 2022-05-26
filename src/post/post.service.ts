@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRepository } from 'src/user/user.repository';
 import { PatchDto, PostDto } from './post.dto';
@@ -22,7 +22,7 @@ export class PostService {
             const result = await this.postRepository.save({ writer_id, text });
 
             return {
-                data: result.post_id,
+                post_id: result.post_id,
                 message: 'Created new post'
             }
         }
@@ -61,12 +61,13 @@ export class PostService {
         }
     }
 
-    async deletePost(id) {
-        const result = await this.postRepository.findOne({ where: { post_id: id }});    
+    async deletePost(post_id, writer_id) {
+        const result = await this.postRepository.findOne({ where: { post_id }});   
 
         if (!result) throw new NotFoundException('Not valid post id');
+        else if (result.writer_id !== writer_id) throw new BadRequestException('Not the writer of the post');
         else {
-            await this.postRepository.softDelete(id);
+            await this.postRepository.softDelete(post_id);
 
             return {
                 message: 'Deleted the post'
