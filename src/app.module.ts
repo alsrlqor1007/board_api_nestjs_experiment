@@ -12,10 +12,10 @@ import { ConfigModule } from '@nestjs/config';
     UserModule,
     PostModule,
     TypeOrmModule.forRoot(typeOrmConfig),
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: '.env'
-    })
+    // ConfigModule.forRoot({
+    //   isGlobal: true,
+    //   envFilePath: '.env',
+    // })
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository } from 'src/user/user.repository';
 import { PostController } from './post.controller';
 import { PostRepository } from './post.repository';
 import { PostService } from './post.service';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Module({
   controllers: [PostController],
@@ -14,6 +17,7 @@ import { PostService } from './post.service';
       PostRepository,
       UserRepository
     ]),
+    // ConfigModule,
     JwtModule.register({ secret: process.env.JWT_SECRET })
   ]
 })
