@@ -14,7 +14,7 @@ import { PostService } from './post.service';
       PostRepository,
       UserRepository
     ]),
-    JwtModule.register({ secret: '1234' })
+    JwtModule.register({ secret: process.env.JWT_SECRET })
   ]
 })
 export class PostModule {}
