@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from './user.controller';
 import { UserRepository } from './user.repository';
 import { UserService } from './user.service';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Module({
   controllers: [UserController],
@@ -12,7 +14,7 @@ import { UserService } from './user.service';
     TypeOrmModule.forFeature([
       UserRepository
     ]),
-    JwtModule.register({ secret: '1234' })
+    JwtModule.register({ secret: process.env.JWT_SECRET })
   ]
 })
 export class UserModule {}

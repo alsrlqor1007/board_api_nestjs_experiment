@@ -1,8 +1,9 @@
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { getEnabledCategories } from 'trace_events';
 import { AppModule } from './app.module';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -27,6 +28,6 @@ async function bootstrap() {
     })
   )
   
-  await app.listen(3000);
+  await app.listen(process.env.SERVER_PORT);
 }
 bootstrap();

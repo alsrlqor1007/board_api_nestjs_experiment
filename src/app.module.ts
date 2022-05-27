@@ -4,22 +4,13 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { PostModule } from './post/post.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { JwtModule } from '@nestjs/jwt';
+import typeOrmConfig from './configs/typeorm.config';
 
 @Module({
   imports: [
     UserModule,
     PostModule,
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'skyup',
-      database: 'board_api_innopam',
-      entities: ["dist/**/*.entity{.ts,.js}"],
-      synchronize: true
-    })
+    TypeOrmModule.forRoot(typeOrmConfig)
   ],
   controllers: [AppController],
   providers: [AppService],
