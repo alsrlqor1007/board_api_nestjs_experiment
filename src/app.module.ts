@@ -6,16 +6,17 @@ import { PostModule } from './post/post.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import typeOrmConfig from './configs/typeorm.config';
 import { ConfigModule } from '@nestjs/config';
+import config from './configs/config';
 
 @Module({
   imports: [
-    UserModule,
-    PostModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [config]
+    }),
     TypeOrmModule.forRoot(typeOrmConfig),
-    // ConfigModule.forRoot({
-    //   isGlobal: true,
-    //   envFilePath: '.env',
-    // })
+    UserModule,
+    PostModule
   ],
   controllers: [AppController],
   providers: [AppService],
