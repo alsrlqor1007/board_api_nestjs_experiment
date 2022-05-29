@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    restart: 'always'
+    ports:
+      - "3306:3306"
+    container_name: board-api-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: skyup # root 계정 비밀번호
+      MYSQL_DATABASE: board_api_innopam # 초기 생성 데이터베이스
+      MYSQL_USER: user # 생성할 사용자 이름 
+      MYSQL_PASSWORD: skyup # 생성할 사용자 비밀번호
+
+  nestjs-board-api:
+    image: skyupinnopam/nestjs-board-api
+    restart: 'always'
+    ports:
+      - "3000:3000"
+    container_name: nestjs-board-api
