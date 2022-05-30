@@ -2,9 +2,16 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
-import * as dotenv from 'dotenv';
 import { ConfigService } from '@nestjs/config';
-dotenv.config();
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+
+dotenv.config({
+  path: path.resolve(
+    (process.env.NODE_ENV === 'prod') ? '.prod.env'
+      : (process.env.NODE_ENV === 'dev') ? '.dev.env' : '.test.env'
+  )
+});
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -29,11 +36,11 @@ async function bootstrap() {
     })
   )
 
-  const configService = app.get(ConfigService);
-  const port = configService.get<string>('server.port');
+  // const serverConfig = app.get(ConfigService);
+  // const port = serverConfig.get<string>('server.port');
   
-  await app.listen(port);
-
-  Logger.log(`Board API server running on ${port}!`);
+  await app.listen(process.env.SERVER_PORT);
+  Logger.log(`Board API server running on ${process.env.SERVER_PORT}!`);
 }
+
 bootstrap();
