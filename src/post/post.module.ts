@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository } from 'src/user/user.repository';
@@ -17,7 +16,6 @@ dotenv.config();
       PostRepository,
       UserRepository
     ]),
-    // ConfigModule,
     JwtModule.register({ secret: process.env.JWT_SECRET })
   ]
 })
