@@ -22,7 +22,7 @@ WORKDIR /app
 
 COPY --from=builder /app ./
 
-EXPOSE 3000
+EXPOSE 5000
 
 ## application 실행
 CMD ["npm", "run", "start"]
