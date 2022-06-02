@@ -6,6 +6,7 @@ import { PostModule } from './post/post.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import typeOrmConfig from './configs/typeorm.config';
 import { ConfigModule } from '@nestjs/config';
+import { CommentModule } from './comment/comment.module';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
@@ -25,7 +26,8 @@ dotenv.config({
     }),
     TypeOrmModule.forRoot(typeOrmConfig),
     UserModule,
-    PostModule
+    PostModule,
+    CommentModule
   ],
   controllers: [AppController],
   providers: [AppService]
