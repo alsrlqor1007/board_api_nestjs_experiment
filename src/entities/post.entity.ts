@@ -1,5 +1,6 @@
 import { User } from "src/entities/user.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Comment } from "src/entities/comment.entity";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('Post')
 export class Post {
@@ -24,4 +25,7 @@ export class Post {
     @ManyToOne(() => User, user => user.posts, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'writer_id', referencedColumnName: 'user_id' })
     user: User;
+
+    @OneToMany(() => Comment, comment => comment.commented_post_id, { cascade: true })
+    comments: Comment[];
 }
