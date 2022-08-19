@@ -12,9 +12,12 @@ import * as path from 'path';
 
 dotenv.config({
   path: path.resolve(
-    (process.env.NODE_ENV === 'prod') ? '.prod.env'
-      : (process.env.NODE_ENV === 'dev') ? '.dev.env' : '.test.env'
-  )
+    process.env.NODE_ENV === 'prod'
+      ? '.dev.env'
+      : process.env.NODE_ENV === 'dev'
+      ? '.dev.env'
+      : '.test.env',
+  ),
 });
 
 @Module({
@@ -22,15 +25,14 @@ dotenv.config({
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: process.env.NODE_ENV === 'dev' ? '.dev.env' : '.test.env',
-      ignoreEnvFile: process.env.NODE_ENV === 'prod'
+      ignoreEnvFile: process.env.NODE_ENV === 'prod',
     }),
     TypeOrmModule.forRoot(typeOrmConfig),
     UserModule,
     PostModule,
-    CommentModule
+    CommentModule,
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [AppService],
 })
-
 export class AppModule {}
