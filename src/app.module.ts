@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './user/user.module';
-import { PostModule } from './post/post.module';
+import { UserModule } from './modules/user.module';
+import { PostModule } from './modules/post.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import typeOrmConfig from './configs/typeorm.config';
 import { ConfigModule } from '@nestjs/config';
 import { CommentModule } from './comment/comment.module';
 import * as dotenv from 'dotenv';
 import * as path from 'path';
+import { ServiceModule } from './modules/service.module';
+import { HttpModule } from '@nestjs/axios';
 
 dotenv.config({
   path: path.resolve(
@@ -30,6 +32,8 @@ dotenv.config({
     TypeOrmModule.forRoot(typeOrmConfig),
     UserModule,
     PostModule,
+    ServiceModule,
+    HttpModule,
     CommentModule,
   ],
   controllers: [AppController],
