@@ -9,7 +9,7 @@ services:
     image: mysql:latest
     restart: 'always'
     ports:
-      - "3306:3306"
+      - "3309:3306"
     container_name: board-api-mysql
     environment:
       MYSQL_ROOT_PASSWORD: skyup # root 계정 비밀번호
@@ -27,7 +27,7 @@ services:
       dockerfile: Dockerfile
     restart: 'always'
     ports:
-      - "3000:3000"
+      - "4000:4000"
     container_name: nestjs-bulletin-board-api
     depends_on:
       - mysql
