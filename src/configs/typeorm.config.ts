@@ -5,10 +5,10 @@ import * as path from 'path';
 dotenv.config({
   path: path.resolve(
     process.env.NODE_ENV === 'prod'
-      ? '.dev.env'
-      : process.env.NODE_ENV === 'dev'
-      ? '.dev.env'
-      : '.test.env',
+      ? '.prod.env'
+      : process.env.NODE_ENV === 'test'
+      ? '.test.env'
+      : '.dev.env',
   ),
 });
 

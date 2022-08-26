@@ -8,10 +8,10 @@ import * as path from 'path';
 dotenv.config({
   path: path.resolve(
     process.env.NODE_ENV === 'prod'
-      ? '.dev.env'
-      : process.env.NODE_ENV === 'dev'
-      ? '.dev.env'
-      : '.test.env',
+      ? '.prod.env'
+      : process.env.NODE_ENV === 'test'
+      ? '.test.env'
+      : '.dev.env',
   ),
 });
 
@@ -38,10 +38,9 @@ async function bootstrap() {
     }),
   );
 
-  // const serverConfig = app.get(ConfigService);
-  // const port = serverConfig.get<string>('server.port');
-
   await app.listen(process.env.SERVER_PORT);
+  Logger.log(`ENVIRONMENT ${process.env.NODE_ENV}!`);
+  Logger.log(`DB PORT ${process.env.DATABASE_PORT}!`);
   Logger.log(`Board API server running on ${process.env.SERVER_PORT}!`);
 }
 
